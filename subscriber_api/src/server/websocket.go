@@ -1,7 +1,6 @@
 package server
 
 import (
-	"encoding/json"
 	"log"
 	"net/http"
 	"subscriberapi/src/subscription"
@@ -38,14 +37,14 @@ func (handler *subscriptionHandler) handleSubscription(w http.ResponseWriter, r 
 	}
 	defer conn.Close()
 
-	messageType, p, err := handler.waitForRequestedTopic(conn)
+	request, err := handler.waitForRequestedTopic(conn)
 	if err != nil {
 		log.Println("Error reading message:", err)
 		return
 	}
 
 	for {
-		err = conn.WriteMessage(messageType, p)
+		err = conn.WriteJSON(request)
 		if err != nil {
 			log.Println("Error writing message:", err)
 			return
@@ -54,24 +53,17 @@ func (handler *subscriptionHandler) handleSubscription(w http.ResponseWriter, r 
 	}
 }
 
-func (handler *subscriptionHandler) waitForRequestedTopic(conn *websocket.Conn) (int, []byte, error) {
+func (handler *subscriptionHandler) waitForRequestedTopic(conn *websocket.Conn) (*TopicRequest, error) {
 	request := TopicRequest{}
-	messageType, p, err := conn.ReadMessage()
+	err := conn.ReadJSON(&request)
 	if err != nil {
 		log.Println("Error reading message:", err)
-		return 0, nil, err
-	}
-
-	log.Printf("Received message: %s\nType: %d", p, messageType)
-
-	if err := json.Unmarshal(p, &request); err != nil {
-		log.Println("Error unmarshaling message:", err)
-		return 0, nil, err
+		return nil, err
 	}
 
 	if !handler.clientMQTT.IsSubscribedTo(request.Topic) {
 		handler.clientMQTT.Subscribe(request.Topic)
 	}
 
-	return messageType, p, nil
+	return &request, nil
 }

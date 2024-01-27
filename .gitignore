@@ -1,3 +1,4 @@
 publisher/*.o
 publisher/*publisher
 .vscode
+.test_ws_client
