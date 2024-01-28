@@ -4,7 +4,6 @@ import (
 	"log"
 	"net/http"
 	"subscriberapi/src/subscription"
-	"time"
 
 	"github.com/gorilla/websocket"
 )
@@ -44,12 +43,12 @@ func (handler *subscriptionHandler) handleSubscription(w http.ResponseWriter, r 
 	}
 
 	for {
-		err = conn.WriteJSON(request)
+		response := <-subscription.SocketChannels[request.Topic]
+		err = conn.WriteJSON(response)
 		if err != nil {
 			log.Println("Error writing message:", err)
 			return
 		}
-		time.Sleep(time.Second)
 	}
 }
 
