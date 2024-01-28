@@ -2,3 +2,4 @@ publisher/*.o
 publisher/*publisher
 .vscode
 .test_ws_client
+build-gui-Desktop_Qt_6_6_1_GCC_64bit-Debug
