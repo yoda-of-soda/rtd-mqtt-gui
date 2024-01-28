@@ -1,6 +1,6 @@
 package subscription
 
 type MessageWithTopic struct {
-	Message string
-	Topic   string
+	Message string `json:"message"`
+	Topic   string `json:"topic"`
 }
