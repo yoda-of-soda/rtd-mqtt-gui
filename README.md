@@ -5,6 +5,11 @@ This consists of 3 applications:
 * **Subscriber API** that makes web socket connection to the MQTT and immediately subscribes to the data from the MQTT instance.
 * **GUI** that shows the data it gets from the `Subscriber API`
 
+## What you should expect to see
+This is a screenshot of the `GUI` application when data has been fed to it by the 2 other applications:
+![image](https://github.com/yoda-of-soda/rtd-mqtt-gui/assets/40967532/152fcd4c-accc-42ed-b64f-d401819768cf)
+The `Add record` button just adds a record that says "Clickbait" to the container to the left.
+
 ## Setup and installation
 This project has certain dependencies:
 * **Mosquitto**: This serves the `MQTT` instance which the `Publisher` and `Subscriber API` communicates with to feed the `GUI` with data. It can be downloaded [here](https://mosquitto.org/download/).
