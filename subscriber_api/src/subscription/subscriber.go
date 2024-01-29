@@ -8,8 +8,7 @@ import (
 	mqtt "github.com/eclipse/paho.mqtt.golang"
 )
 
-// var SocketChannel chan *MessageWithTopic = make(chan *MessageWithTopic)
-var SocketChannels = map[string]chan *MessageWithTopic{}
+var SocketChannel chan *MessageWithTopic = make(chan *MessageWithTopic)
 
 type MQTTSubscriber struct {
 	Client           mqtt.Client
@@ -37,7 +36,6 @@ func (subscriber *MQTTSubscriber) Subscribe(topic string) {
 		qos = parsedQoS
 	}
 	token := subscriber.Client.Subscribe(topic, byte(qos), onMessageReceived)
-	SocketChannels[topic] = make(chan *MessageWithTopic)
 	token.Wait()
 	subscriber.topicsSubscribed[topic] = struct{}{}
 }
@@ -45,8 +43,7 @@ func (subscriber *MQTTSubscriber) Subscribe(topic string) {
 func onMessageReceived(client mqtt.Client, message mqtt.Message) {
 	fmt.Printf("Received message on topic: %s\n", message.Topic())
 	fmt.Printf("Message: %s\n", message.Payload())
-	// SocketChannel <- &MessageWithTopic{Topic: message.Topic(), Message: string(message.Payload())}
-	SocketChannels[message.Topic()] <- &MessageWithTopic{Topic: message.Topic(), Message: string(message.Payload())}
+	SocketChannel <- &MessageWithTopic{Topic: message.Topic(), Message: string(message.Payload())}
 }
 
 func (subscriber *MQTTSubscriber) IsSubscribedTo(topic string) bool {

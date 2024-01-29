@@ -13,6 +13,10 @@ type subscriptionHandler struct {
 	clientMQTT        *subscription.MQTTSubscriber
 }
 
+type TopicRequest struct {
+	Topics []string `json:"topics"`
+}
+
 func newSubscriptionHandler(mqttUrl, clientId string) (*subscriptionHandler, error) {
 	mqttClient, err := subscription.NewMQTTSubscriber(mqttUrl, clientId)
 	if err != nil {
@@ -36,33 +40,36 @@ func (handler *subscriptionHandler) handleSubscription(w http.ResponseWriter, r 
 	}
 	defer conn.Close()
 
-	request, err := handler.waitForRequestedTopic(conn)
-	if err != nil {
+	if err = handler.waitForRequestedTopic(conn); err != nil {
 		log.Println("Error reading message:", err)
 		return
 	}
 
 	for {
-		response := <-subscription.SocketChannels[request.Topic]
-		err = conn.WriteJSON(response)
-		if err != nil {
-			log.Println("Error writing message:", err)
-			return
+		response := <-subscription.SocketChannel
+		if handler.clientMQTT.IsSubscribedTo(response.Topic) {
+			err = conn.WriteJSON(response)
+			if err != nil {
+				log.Println("Error writing message:", err)
+				return
+			}
 		}
 	}
 }
 
-func (handler *subscriptionHandler) waitForRequestedTopic(conn *websocket.Conn) (*TopicRequest, error) {
+func (handler *subscriptionHandler) waitForRequestedTopic(conn *websocket.Conn) error {
 	request := TopicRequest{}
 	err := conn.ReadJSON(&request)
 	if err != nil {
 		log.Println("Error reading message:", err)
-		return nil, err
+		return err
 	}
 
-	if !handler.clientMQTT.IsSubscribedTo(request.Topic) {
-		handler.clientMQTT.Subscribe(request.Topic)
+	for _, topic := range request.Topics {
+		if !handler.clientMQTT.IsSubscribedTo(topic) {
+			handler.clientMQTT.Subscribe(topic)
+		}
 	}
 
-	return &request, nil
+	return nil
 }

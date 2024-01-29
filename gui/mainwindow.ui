@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>868</width>
+    <height>507</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,26 +17,13 @@
    <iconset theme="network-transmit"/>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QPushButton" name="btnAddRecord">
+   <widget class="QGroupBox" name="groupBoxA">
     <property name="geometry">
      <rect>
-      <x>60</x>
-      <y>440</y>
-      <width>89</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Add record</string>
-    </property>
-   </widget>
-   <widget class="QGroupBox" name="groupBox">
-    <property name="geometry">
-     <rect>
-      <x>60</x>
+      <x>10</x>
       <y>40</y>
       <width>271</width>
-      <height>381</height>
+      <height>411</height>
      </rect>
     </property>
     <property name="title">
@@ -48,26 +35,15 @@
        <x>0</x>
        <y>20</y>
        <width>271</width>
-       <height>361</height>
+       <height>391</height>
       </rect>
      </property>
-     <layout class="QGridLayout" name="gridLayout">
-      <item row="1" column="1">
-       <widget class="QLabel" name="lastUpdatedValue">
-        <property name="text">
-         <string/>
-        </property>
-       </widget>
-      </item>
-      <item row="1" column="0">
-       <widget class="QLabel" name="labelLastUpdated">
-        <property name="text">
-         <string>Last updated:</string>
-        </property>
-       </widget>
+     <layout class="QGridLayout" name="gridLayoutA">
+      <item row="2" column="0" colspan="2">
+       <widget class="QListView" name="recordListA"/>
       </item>
       <item row="0" column="0" colspan="2">
-       <widget class="QLCDNumber" name="lcdNumber">
+       <widget class="QLCDNumber" name="lcdNumberA">
         <property name="sizePolicy">
          <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
@@ -76,8 +52,26 @@
         </property>
        </widget>
       </item>
-      <item row="2" column="0" colspan="2">
-       <widget class="QListView" name="recordListA"/>
+      <item row="1" column="0">
+       <widget class="QLabel" name="labelLastUpdatedA">
+        <property name="text">
+         <string>Last updated:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="lastUpdatedValueA">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="3" column="0" colspan="2">
+       <widget class="QPushButton" name="btnAddRecord">
+        <property name="text">
+         <string>Add record</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
@@ -92,7 +86,124 @@
      </rect>
     </property>
     <property name="text">
-     <string>TextLabel</string>
+     <string>Disconnected</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="groupBoxB">
+    <property name="geometry">
+     <rect>
+      <x>290</x>
+      <y>40</y>
+      <width>271</width>
+      <height>381</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Item B</string>
+    </property>
+    <widget class="QWidget" name="gridLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>271</width>
+       <height>361</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayoutB">
+      <item row="2" column="0" colspan="2">
+       <widget class="QListView" name="recordListB"/>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QLCDNumber" name="lcdNumberB">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="lastUpdatedValueB">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="labelLastUpdatedB">
+        <property name="text">
+         <string>Last updated:</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QGroupBox" name="groupBoxC">
+    <property name="geometry">
+     <rect>
+      <x>580</x>
+      <y>40</y>
+      <width>271</width>
+      <height>381</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>Item C</string>
+    </property>
+    <widget class="QWidget" name="gridLayoutWidget_3">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>20</y>
+       <width>271</width>
+       <height>361</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="gridLayoutC">
+      <item row="1" column="1">
+       <widget class="QLabel" name="lastUpdatedValueC">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0" colspan="2">
+       <widget class="QLCDNumber" name="lcdNumberC">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="MinimumExpanding" vsizetype="Expanding">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="labelLastUpdatedC">
+        <property name="text">
+         <string>Last updated:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="2">
+       <widget class="QListView" name="recordListC"/>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+   <widget class="QPushButton" name="btnConnect">
+    <property name="geometry">
+     <rect>
+      <x>550</x>
+      <y>10</y>
+      <width>89</width>
+      <height>25</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Connect</string>
     </property>
    </widget>
   </widget>
@@ -101,7 +212,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>800</width>
+     <width>868</width>
      <height>22</height>
     </rect>
    </property>
