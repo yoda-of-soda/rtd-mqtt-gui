@@ -1,6 +1,7 @@
 #include <random>
 #include <vector>
 #include "message_with_topic.hpp"
+#include "topic_message_generator_test.hpp"
 
 #ifndef TOPICMESSAGEGENERATOR_HPP
 #define TOPICMESSAGEGENERATOR_HPP
@@ -19,6 +20,7 @@ private:
     float getRandomFloat(float min, float max);
     std::string getRandomTopic();
     bool topicIsInvalid(std::string topic);
+    friend class TopicMessageGeneratorTest;
 };
 
 #endif
