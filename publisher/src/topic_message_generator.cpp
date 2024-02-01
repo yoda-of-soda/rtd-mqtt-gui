@@ -43,7 +43,7 @@ bool TopicMessageGenerator::topicIsInvalid(std::string topic)
     for (std::size_t i = 0; i < topics.size(); i++)
     {
         if (topics[i] == topic)
-            return true;
+            return false;
     }
-    return false;
+    return true;
 }
