@@ -1,21 +1,14 @@
-#include "mocks/mqtt_client.hpp"
-#include <gtest/gtest.h>
+#include "mqtt_client_test.hpp"
 
-class MQTT_ClientTest : public ::testing::Test
+void MQTT_ClientTest::SetUp()
 {
-    public: 
-        void SetUp()
-        {
-            mockClient = new MockMQTT_Client();
-        }
+    mockClient = new MockMQTT_Client();
+}
 
-        void TearDown()
-        {
-            delete mockClient;
-        }
-    protected:
-        MockMQTT_Client* mockClient;
-};
+void MQTT_ClientTest::TearDown()
+{
+    delete mockClient;
+}
 
 TEST_F(MQTT_ClientTest, SendMessageIsCalled)
 {
@@ -23,4 +16,3 @@ TEST_F(MQTT_ClientTest, SendMessageIsCalled)
     EXPECT_CALL(*mockClient, SendMessage(msg));
     mockClient->SendMessage(msg);
 }
-

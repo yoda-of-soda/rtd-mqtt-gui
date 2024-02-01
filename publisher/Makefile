@@ -12,6 +12,7 @@ SRC_DIR := src
 INCLUDE_DIR := include
 TEST_DIR := tests
 TEST_INCLUDE_DIR := $(TEST_DIR)/$(INCLUDE_DIR)
+MOCK_INCLUDE_DIR := $(TEST_DIR)/mocks
 BUILD_DIR := build
 BIN_DIR := bin
 
@@ -24,6 +25,7 @@ MAIN_FILE := main.cpp
 
 # Include directories
 INC := -I$(INCLUDE_DIR) -I$(TEST_INCLUDE_DIR)
+TEST_INC := -I$(TEST_INCLUDE_DIR) -I$(MOCK_INCLUDE_DIR)
 
 TARGET := $(BIN_DIR)/mqtt_publisher
 TEST_TARGET := $(BIN_DIR)/test_mqtt_publisher
@@ -51,11 +53,8 @@ test: $(TEST_TARGET)
 $(TEST_TARGET): $(TEST_OBJ_FILES) $(filter-out $(BUILD_DIR)/$(patsubst %.cpp, %.o, $(MAIN_FILE)), $(OBJ_FILES))
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LIBS) $(TEST_LIBS)
 
-# $(TEST_TARGET): $(TEST_OBJ_FILES)
-# 	$(CXX) $^ -o $@ $(LIBS)
-
 $(BUILD_DIR)/%.o: $(TEST_DIR)/%.cpp
-	$(CXX) $(CXXFLAGS) $(INC) -c $< -o $@
+	$(CXX) $(CXXFLAGS) $(INC) $(TEST_INC) -c $< -o $@
 
 start:
 	QUEUE_URL=$(QUEUE_URL) CLIENT_ID=$(CLIENT_ID) TOPIC=$(TOPIC) $(TARGET)
@@ -66,6 +65,3 @@ clean:
 
 neat:
 	rm -f $(OBJ_FILES)
-
-# g++ -std=c++11 build/topic_message_generator_test.o build/callback.o build/load_environment.o build/message_with_topic.o build/mqtt_client.o build/topic_message_generator.o -o bin/test_mqtt_publisher -lpaho-mqttpp3 -lpaho-mqtt3as
-# g++ -std=c++11 build/topic_message_generator_test.o -o bin/test_mqtt_publisher -lgtest
