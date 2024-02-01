@@ -48,7 +48,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 
 test: $(TEST_TARGET)
 	@echo "Running tests..."
-	$(TEST_TARGET)
+	QUEUE_URL=$(QUEUE_URL) CLIENT_ID=$(CLIENT_ID) TOPIC=$(TOPIC) $(TEST_TARGET)
 
 $(TEST_TARGET): $(TEST_OBJ_FILES) $(filter-out $(BUILD_DIR)/$(patsubst %.cpp, %.o, $(MAIN_FILE)), $(OBJ_FILES))
 	$(CXX) $(CXXFLAGS) $^ -o $@ $(LIBS) $(TEST_LIBS)
