@@ -1,11 +1,12 @@
-#include <mqtt/async_client.h>
-#include "message_with_topic.hpp"
-#include "callback.hpp"
-
 #ifndef MQTT_CLIENT_HPP
 #define MQTT_CLIENT_HPP
 
-class MQTT_Client
+#include <mqtt/async_client.h>
+#include "message_with_topic.hpp"
+#include "callback.hpp"
+#include "Imqtt_client.hpp"
+
+class MQTT_Client : public IMQTT_Client
 {
 public:
     MQTT_Client(std::string url, std::string clientId);

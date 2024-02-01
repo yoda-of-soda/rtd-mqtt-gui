@@ -13,3 +13,8 @@ MessageWithTopic::MessageWithTopic(std::string topic, float numericMessage)
     this->message = std::to_string(numericMessage);
     this->topic = topic;
 };
+
+bool MessageWithTopic::operator==(const MessageWithTopic &other) const
+{
+    return topic.to_string() == other.topic.to_string() && message == other.message;
+}

@@ -2,15 +2,16 @@ CXX := g++
 CXXFLAGS := -std=c++11 -Wall
 
 LIBS := -lpaho-mqttpp3 -lpaho-mqtt3as
-TEST_LIBS := -lgtest
+TEST_LIBS := -lgtest -lgmock
 
 QUEUE_URL := "tcp://127.0.0.1:1883"
 CLIENT_ID := "publisher"
 
 # Directories
 SRC_DIR := src
-INCLUDE_DIR := ./include
+INCLUDE_DIR := include
 TEST_DIR := tests
+TEST_INCLUDE_DIR := $(TEST_DIR)/$(INCLUDE_DIR)
 BUILD_DIR := build
 BIN_DIR := bin
 
@@ -22,7 +23,7 @@ TEST_OBJ_FILES := $(patsubst $(TEST_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(TEST_FILES))
 MAIN_FILE := main.cpp
 
 # Include directories
-INC := -I$(INCLUDE_DIR)
+INC := -I$(INCLUDE_DIR) -I$(TEST_INCLUDE_DIR)
 
 TARGET := $(BIN_DIR)/mqtt_publisher
 TEST_TARGET := $(BIN_DIR)/test_mqtt_publisher
